@@ -1,0 +1,25 @@
+experiment:
+  # these are mandatory
+  epochs: 5000
+  max_turns: 100
+  record_period: 50
+
+  # optional but recognized
+  # defaults to Path(__file__).parent / "./data/"
+  output_dir: data/logs/${now:%m-%d_%H-%M-%S}
+
+world:
+  # custom
+  stag_value: 5
+  hare_value: 1
+  beam_radius: ???
+  spawn_prob: 0.005
+
+model:
+  agent_vision_radius: 3
+
+  # optional but recognized
+  epsilon_decay: 0.0005
+  save_weights: True
+
+log: true
