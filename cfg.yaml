@@ -14,6 +14,10 @@ world:
   hare_value: 1
   beam_radius: ???
   spawn_prob: 0.005
+  width: 11
+  height: 11
+  spawn_ratio: [0.5, 0.5] # [stag, hare]
+  beam_radius: 2
 
 model:
   agent_vision_radius: 3
