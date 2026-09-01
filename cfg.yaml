@@ -3,6 +3,7 @@ experiment:
   epochs: 5000
   max_turns: 100
   record_period: 50
+  device: cpu
 
   # optional but recognized
   # defaults to Path(__file__).parent / "./data/"
@@ -12,12 +13,11 @@ world:
   # custom
   stag_value: 5
   hare_value: 1
-  beam_radius: ???
+  beam_radius: 2
   spawn_prob: 0.005
   width: 11
   height: 11
-  spawn_ratio: [0.5, 0.5] # [stag, hare]
-  beam_radius: 2
+  num_of_agents: 2
 
 model:
   agent_vision_radius: 3
