@@ -131,8 +131,12 @@ class StaghuntEnv(Environment[StaghuntWorld]):
         """Augment the base per-turn snapshot with staghunt-specific event counts."""
         stats = super().collect_turn_stats(epoch)
         stats.extra.update(self.world.metrics_collector.create_world_specific_stats_dict())
-        self.world.metrics_collector.reset_turn()
         return stats
+
+    @override
+    def on_turn_end(self, stats:TurnStats) -> None:
+        super().on_turn_end(stats)
+        self.world.metrics_collector.reset_turn()
 
     @override
     def aggregate_epoch_stats(self) -> dict[str, float]:
@@ -181,6 +185,6 @@ class StaghuntEnv(Environment[StaghuntWorld]):
         return {
             **base,
             **{f"total_{k}": v for k, v in totals.items()},
-            **by_agent_totals,
+            **{f"total_{k}": v for k, v in by_agent_totals.items()},
             **ratios,
         }

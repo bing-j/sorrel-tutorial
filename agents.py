@@ -40,6 +40,8 @@ class StaghuntAgent(MovingAgent[StaghuntWorld]):
     def reset(self) -> None:
         """Resets the agent by fill in blank images for the memory buffer."""
         self.model.reset()
+        self.last_attacked = []
+        self.last_turn_reward = 0
 
     def pov(self, world: StaghuntWorld) -> np.ndarray:
         """Returns the state observed by the agent, from the flattened visual field."""

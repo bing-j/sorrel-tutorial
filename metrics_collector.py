@@ -18,7 +18,8 @@ if TYPE_CHECKING:
 class StaghuntMetricsCollector:
     """Accumulates raw per-turn event counts for the staghunt environment."""
 
-    def __init__(self):
+    def __init__(self, num_agents: int = 0):
+        self.num_agents = num_agents
         self.reset_turn()
 
     def reset_turn(self) -> None:
@@ -32,12 +33,15 @@ class StaghuntMetricsCollector:
         self.stags_defeated = 0
         self.hares_defeated = 0
 
-        # per-agent (turn-level) counters
-        self.attacks_to_hares_by_agent: dict[int, int] = defaultdict(int)
-        self.attacks_to_stags_by_agent: dict[int, int] = defaultdict(int)
-        self.resources_defeated_by_agent: dict[int, int] = defaultdict(int)
-        self.stags_defeated_by_agent: dict[int, int] = defaultdict(int)
-        self.hares_defeated_by_agent: dict[int, int] = defaultdict(int)
+        # make sure that agents with no events this turn still add a 0 for tensorboard logging
+        def _zero_filled() -> dict[int, int]:
+            return defaultdict(int, {i: 0 for i in range(self.num_agents)})
+
+        self.attacks_to_hares_by_agent: dict[int, int] = _zero_filled()
+        self.attacks_to_stags_by_agent: dict[int, int] = _zero_filled()
+        self.resources_defeated_by_agent: dict[int, int] = _zero_filled()
+        self.stags_defeated_by_agent: dict[int, int] = _zero_filled()
+        self.hares_defeated_by_agent: dict[int, int] = _zero_filled()
 
     def collect_attack_metrics(self, agent: StaghuntAgent, target_type: str) -> None:
         """Record an attack action.

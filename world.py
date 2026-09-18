@@ -20,4 +20,4 @@ class StaghuntWorld(Gridworld):
         self.beam_radius = config.world.beam_radius
         self.num_of_agents = config.world.num_of_agents
 
-        self.metrics_collector = StaghuntMetricsCollector()
+        self.metrics_collector = StaghuntMetricsCollector(num_agents=self.num_of_agents)
