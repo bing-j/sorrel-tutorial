@@ -1,0 +1,19 @@
+experiment:
+  epochs: 5000
+  max_turns: 100
+  record_period: 50
+  device: cpu
+  output_dir: data/logs/${now:%m-%d_%H-%M-%S}
+world:
+  stag_value: 5
+  hare_value: 1
+  beam_radius: 2
+  spawn_prob: 0.005
+  width: 11
+  height: 11
+  num_of_agents: 2
+model:
+  agent_vision_radius: 3
+  epsilon_decay: 0.0005
+  save_weights: true
+log: true
